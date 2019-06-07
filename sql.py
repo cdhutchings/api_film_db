@@ -1,10 +1,4 @@
-from flask import request, url_for
-from flask_api import FlaskAPI, status, exceptions
 import pyodbc
-
-app = FlaskAPI(__name__)
-
-
 
 class SqlConn:
 
@@ -21,28 +15,3 @@ class SqlConn:
 
         return self.cursor.execute(sql_query)
 
-    @app.route('/add_row', methods=['GET', 'POST'])
-
-    def add_row(self):
-        type = request.form("Type")
-        title = request.form("Title")
-        original_title = request.form("Original Title")
-        is_adult = request.form("Adult Rating?")
-        year = request.form("Year")
-        endyear = request.form("End Year")
-        runtime = request.form("Runtime")
-        genre = request.form("Genre")
-
-        self.query(f"INSERT INTO film_list ([type], title, original_title, is_adult, [year], endyear, "
-                             f"runtime, genre)"
-                             f"VALUES ('{type}', '{title}', '{original_title}', {is_adult},"
-                             f"{year}, {endyear}, {runtime}, '{genre}')")
-
-        self.docker_con.commit()
-
-        return "Done!"
-
-    @app.route('/add_row', methods=['GET', 'POST'])
-    def addition(self):
-        self.add_row()
-        return render_template('form.html')

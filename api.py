@@ -1,8 +1,12 @@
-from sql import *
+from flask import Flask, request
+app = Flask(__name__)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route("/")
 
-test = SqlConn()
+@app.route('/')
+def index():
+    return 'Index Page'
 
-test.add_row()
+@app.route('/hello')
+def hello():
+    return 'Hello, World'
