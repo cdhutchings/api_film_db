@@ -1,15 +1,32 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, json
 app = Flask(__name__)
 
-@app.route("/")
 
-@app.route('/')
+@app.route('/') #endpoint route to receive get or post requests
 def index():
+    #do something
     return 'Index Page'
 
 @app.route('/hello')
 def hello():
     return 'Hello, World'
+
+
+
+@app.route('/newpost', methods = ['POST'])
+def newpost():
+    # Capture the incoming JSON Body
+        # Capture the params
+        # Access the incoming params
+        # get the JSON
+    request.args
+    breakpoint()
+    # Extract relevant data
+    # Call our method that saves to the DB
+        # Send in the relevant data
+    return 'heyya'
+
+
 
 @app.route("/form")
 def form():
@@ -18,14 +35,17 @@ def form():
 @app.route("/postform", methods=["POST"])
 def postform():
 
-    # result = request.form
+
+    data = request.data
+    dataDict = json.loads(data)
+
     # return render_template("result.html", result=result)
     # CAPTURE A BODY OF JSON
     # SORT NOUT DATA
     # CALL MATHOD TO MAKE DATA PERSISTENT
 
-    return "Hello!"
-    pass
+    return str(dataDict)
+
 
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
