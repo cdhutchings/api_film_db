@@ -1,4 +1,6 @@
 from flask import Flask, request, render_template, json
+from sql import *
+
 app = Flask(__name__)
 
 
@@ -24,11 +26,17 @@ def filmpost():
     # Call our method that saves to the DB
         # Send in the relevant data
 
+    connection = SqlConn()
+
     params = request.data
     param_dict = json.loads(params)
 
-    return render_template("filmresult.html", param_dict=param_dict)
+    connection.insert(param_dict["type"], param_dict["title"], param_dict["original_title"], param_dict[
+        "is_adult"],
+                      param_dict["year"], param_dict["end_year"], param_dict["runtime"], param_dict["genre"])
 
+    connection.docker_con.commit()
+    return "All Good! Check your database!"
 
 
 
