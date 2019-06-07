@@ -39,12 +39,17 @@ def postform():
     data = request.data
     dataDict = json.loads(data)
 
+    fname = dataDict["firstname"]
+    lname = dataDict["lastname"]
+
+
+
     # return render_template("result.html", result=result)
     # CAPTURE A BODY OF JSON
     # SORT NOUT DATA
     # CALL MATHOD TO MAKE DATA PERSISTENT
 
-    return str(dataDict)
+    return render_template("result.html", fname=fname, lname=lname)
 
 
 @app.route('/result',methods = ['POST', 'GET'])
