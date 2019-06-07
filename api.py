@@ -13,18 +13,22 @@ def hello():
 
 
 
-@app.route('/newpost', methods = ['POST'])
-def newpost():
+@app.route('/filmpost', methods = ['POST'])
+def filmpost():
     # Capture the incoming JSON Body
         # Capture the params
         # Access the incoming params
         # get the JSON
-    request.args
-    breakpoint()
+
     # Extract relevant data
     # Call our method that saves to the DB
         # Send in the relevant data
-    return 'heyya'
+
+    params = request.data
+    param_dict = json.loads(params)
+
+    return render_template("filmresult.html", param_dict=param_dict)
+
 
 
 
@@ -41,13 +45,6 @@ def postform():
 
     fname = dataDict["firstname"]
     lname = dataDict["lastname"]
-
-
-
-    # return render_template("result.html", result=result)
-    # CAPTURE A BODY OF JSON
-    # SORT NOUT DATA
-    # CALL MATHOD TO MAKE DATA PERSISTENT
 
     return render_template("result.html", fname=fname, lname=lname)
 
